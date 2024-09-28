@@ -844,7 +844,21 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      signs = false,
+      keywords = {
+        FIX = {
+          color = 'error',
+          alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
+        },
+        TODO = { color = 'info' },
+      },
+    },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -930,6 +944,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+  { import = 'custom.plugins.oil' },
   { import = 'custom.plugins.dashboard' },
   { import = 'custom.plugins.noice' },
   { import = 'custom.plugins.harpoon' },
