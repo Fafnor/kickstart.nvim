@@ -204,6 +204,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Autosave when focus of window is lost
+vim.api.nvim_create_autocmd('FocusLost', {
+  desc = 'Autosave when focus of window is lost.',
+  callback = function()
+    vim.api.nvim_command 'update'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -398,6 +406,7 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'noice')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -743,6 +752,8 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-buffer',
     },
     config = function()
       -- See `:help cmp`
@@ -775,7 +786,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -819,7 +830,36 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          {
+            name = 'buffer',
+            option = {
+              keyword_pattern = [[\k\+]],
+            },
+          },
         },
+
+        -- `:` cmdline setup.
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = cmp.config.sources({
+            { name = 'path' },
+          }, {
+            {
+              name = 'cmdline',
+              option = {
+                ignore_cmds = { 'Man', '!' },
+              },
+            },
+          }),
+        }),
+
+        -- `/` cmdline setup.
+        cmp.setup.cmdline('/', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' },
+          },
+        }),
       }
     end,
   },
@@ -933,6 +973,7 @@ require('lazy').setup({
   { import = 'custom.plugins.noice' },
   { import = 'custom.plugins.oil' },
   { import = 'custom.plugins.harpoon' },
+  { import = 'custom.plugins.ufo' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

@@ -5,7 +5,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       theme = 'ayu_mirage',
-      extensions = { 'oil', 'neo-tree' },
+      extensions = { 'lazy', 'mason', 'oil', 'neo-tree' },
       sections = {
         lualine_c = {
           {
