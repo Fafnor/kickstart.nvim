@@ -631,6 +631,10 @@ require('lazy').setup({
         ts_ls = {},
         biome = {},
         eslint = {},
+        jsonls = {},
+        cssls = {},
+        css_variables = {},
+        cssmodules_ls = {},
         --
 
         lua_ls = {
