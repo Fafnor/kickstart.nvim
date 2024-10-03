@@ -5,7 +5,8 @@ return {
     lazy = false,
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('harpoon').setup {}
+      local harpoon = require 'harpoon'
+      harpoon:setup()
 
       local function toggle_telescope_with_harpoon(harpoon_files)
         local file_paths = {}
@@ -25,7 +26,6 @@ return {
           :find()
       end
       vim.keymap.set('n', '<leader>hl', function()
-        local harpoon = require 'harpoon'
         toggle_telescope_with_harpoon(harpoon:list())
       end, { desc = 'Open harpoon window' })
     end,
@@ -33,18 +33,18 @@ return {
       {
         '<leader>hA',
         function()
-          require('harpoon'):list():append()
+          require('harpoon'):list():add()
         end,
         desc = 'harpoon file',
       },
-      {
-        '<leader>hq',
-        function()
-          local harpoon = require 'harpoon'
-          harpoon.ui:toggle_quick_menu(harpoon:list())
-        end,
-        desc = 'harpoon quick menu',
-      },
+      --      {
+      --        '<leader>hq',
+      --        function()
+      --          local harpoon = require 'harpoon'
+      --          harpoon.ui:toggle_quick_menu(harpoon:list())
+      --        end,
+      --        desc = 'harpoon quick menu',
+      --      },
       {
         '<leader>h1',
         function()
