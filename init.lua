@@ -1026,12 +1026,13 @@ require('lazy').setup({
   { import = 'custom.plugins.dashboard' },
   { import = 'custom.plugins.lualine' },
   { import = 'custom.plugins.noice' },
-  { import = 'custom.plugins.oil' },
+  { import = 'custom.plugins.file-browser' },
   { import = 'custom.plugins.harpoon' },
   { import = 'custom.plugins.ufo' },
   { import = 'custom.plugins.trouble' },
   { import = 'custom.plugins.conform' },
   { import = 'custom.plugins.lazygit' },
+  { import = 'custom.plugins.precognition' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
