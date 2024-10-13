@@ -651,6 +651,7 @@ require('lazy').setup({
         cssls = {},
         css_variables = {},
         cssmodules_ls = {},
+        tailwindcss = {},
         --
 
         lua_ls = {
@@ -1015,7 +1016,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1026,13 +1027,15 @@ require('lazy').setup({
   { import = 'custom.plugins.dashboard' },
   { import = 'custom.plugins.lualine' },
   { import = 'custom.plugins.noice' },
-  { import = 'custom.plugins.file-browser' },
+  -- { import = 'custom.plugins.file-browser' },
+  { import = 'custom.plugins.oil' },
   { import = 'custom.plugins.harpoon' },
   { import = 'custom.plugins.ufo' },
   { import = 'custom.plugins.trouble' },
   { import = 'custom.plugins.conform' },
   { import = 'custom.plugins.lazygit' },
   { import = 'custom.plugins.precognition' },
+  { import = 'custom.plugins.tailwind' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

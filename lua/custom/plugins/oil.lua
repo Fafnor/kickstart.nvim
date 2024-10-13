@@ -13,11 +13,22 @@ return {
       require('oil').setup {
         columns = { 'icon' },
         keymaps = {
+          -- ['<leader>-'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
           ['<C-h>'] = false,
           ['<C-l>'] = false,
           ['<C-k>'] = false,
           ['<C-j>'] = false,
           ['<M-h>'] = 'actions.select_split',
+          ['<leader>so'] = {
+            function()
+              require('telescope.builtin').find_files {
+                cwd = require('oil').get_current_dir(),
+              }
+            end,
+            mode = 'n',
+            nowait = true,
+            desc = '[S]earch files in the current directory',
+          },
         },
         win_options = {
           winbar = '%{v:lua.CustomOilBar()}',
