@@ -190,9 +190,11 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('n', '<leader>tc', 'gcc', { desc = '[T]oggle comment line', remap = true })
-vim.keymap.set('n', '<leader>tU', 'gc~', { desc = '[T]oggle case', remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>tc', 'gcc', { desc = '[T]oggle comment line', remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>tU', 'gc~', { desc = '[T]oggle case', remap = true })
 vim.keymap.set('n', '<leader>tf', 'za', { desc = '[T]oggle fold', remap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '<cmd>t.<CR>', { desc = 'Duplicate line', remap = true })
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-s>', '<cmd>update<CR>', { desc = 'Save buffer', remap = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -330,14 +332,12 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>y', group = 'S[y]mbols' },
         { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
         { '<leader>h', group = '[H]arpoon', mode = { 'n' } },
-        { '<leader>t', group = '[T]oggle', mode = { 'n' } },
-        { '<leader>d', group = '[D]iagnostics', mode = { 'n' } },
+        { '<leader>t', group = '[T]oggle', mode = { 'n', 'v' } },
       },
     },
   },
