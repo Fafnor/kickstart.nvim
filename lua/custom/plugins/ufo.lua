@@ -18,6 +18,9 @@ return {
 
     require('ufo').setup {
       provider_selector = function(bufnr, filetype, buftype)
+        if buftype ~= '' then
+          return ''
+        end
         return { 'lsp', 'indent' }
       end,
     }
