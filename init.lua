@@ -164,8 +164,24 @@ vim.opt.scrolloff = 10
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Move line(s) up/down, re-indenting after the move
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'Move line up' })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic [E]rror under cursor' })
+
+-- Show diagnostic message inline, next to the offending code.
+-- Note: virtual_text renders on the same screen line as the code, so long
+-- messages get clipped at the window edge — it can't wrap. Use <leader>de
+-- (the floating window below) to read the full message; that one wraps.
+vim.diagnostic.config {
+  virtual_text = { spacing = 4, prefix = '●' },
+  float = { border = 'rounded', wrap = true, max_width = 80, source = true },
+}
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -429,6 +445,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[F]ind Files' })
       -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', function()
         live_grep_args_shortcuts.grep_word_under_cursor { postfix = ' -F packages' }
@@ -570,7 +587,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
+          map('<leader>;', vim.lsp.buf.code_action, 'Code Action', { 'n', 'x' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -707,16 +724,6 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -1028,11 +1035,12 @@ require('lazy').setup({
   { import = 'custom.plugins.noice' },
   -- { import = 'custom.plugins.file-browser' },
   { import = 'custom.plugins.oil' },
-  { import = 'custom.plugins.harpoon' },
   { import = 'custom.plugins.ufo' },
   { import = 'custom.plugins.trouble' },
   { import = 'custom.plugins.lazygit' },
   { import = 'custom.plugins.precognition' },
+  { import = 'custom.plugins.claudecode' },
+  { import = 'custom.plugins.conform' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
