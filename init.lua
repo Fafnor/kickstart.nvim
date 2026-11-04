@@ -454,6 +454,7 @@ require('lazy').setup({
         live_grep_args_shortcuts.grep_visual_selection { postfix = ' -F packages' }
       end, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>gf', builtin.git_status, { desc = 'git changed [f]iles' })
       -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [R]ecent Files' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
@@ -1039,7 +1040,6 @@ require('lazy').setup({
   { import = 'custom.plugins.trouble' },
   { import = 'custom.plugins.lazygit' },
   { import = 'custom.plugins.precognition' },
-  { import = 'custom.plugins.claudecode' },
   { import = 'custom.plugins.conform' },
 }, {
   ui = {
